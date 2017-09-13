@@ -1,0 +1,5 @@
+module service {
+    exports nl.ordina.jtech.java9.service;
+    exports nl.ordina.jtech.java9.service.collections;
+    exports nl.ordina.jtech.java9.service.collections.impl;
+}

@@ -1,0 +1,12 @@
+In Java 7, the try-with-resources syntax requires a fresh variable to be declared for each resource being managed by the statement.
+
+In Java 9 there is an additional refinement: if the resource is referenced by a final or effectively final variable, a try-with-resources statement can manage a resource without a new variable being declared:
+
+MyAutoCloseable mac = new MyAutoCloseable();
+try (mac) {
+    // do some stuff with mac
+}
+  
+try (new MyAutoCloseable() { }.finalWrapper.finalCloseable) {
+   // do some stuff with finalCloseable
+} catch (Exception ex) { }
