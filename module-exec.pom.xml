@@ -2,14 +2,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <parent>
-        <groupId>nl.ordina.jtech.java9</groupId>
-        <artifactId>userService</artifactId>
-        <version>1.0-SNAPSHOT</version>
-    </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>user</artifactId>
+    <groupId>nl.ordina.jtech.java9</groupId>
+    <artifactId>module-exec</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
 
     <dependencies>
         <dependency>
@@ -17,30 +15,21 @@
             <artifactId>service</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>nl.ordina.jtech.java9</groupId>
+            <artifactId>user</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
     <build>
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.7.0</version>
-                <configuration>
-                    <fork>true</fork>
-                    <source>9</source>
-                    <target>9</target>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <!-- Maven 3.3.1+: mvn org.codehaus.mojo:exec-maven-plugin:1.6.0:exec@user-module -->
-                <!-- Maven < 3.3.1: mvn exec:exec (cannot select a specific id) -->
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>1.6.0</version>
                 <executions>
                     <execution>
-                        <id>user-module</id>
                         <goals>
                             <goal>exec</goal>
                         </goals>
@@ -51,11 +40,9 @@
                     <addOutputToClasspath>false</addOutputToClasspath>
                     <arguments>
                         <argument>--module-path</argument>
-                        <!-- only works with plugin version 1.2.1 which is not java9-aware.. -->
-                        <!--<argument>target/${project.artifactId}-${project.version}.jar;../service/target/service-${project.version}.jar</argument>-->
                         <modulepath>
                             <dependency>nl.ordina.jtech.java9:user</dependency>
-                            <!--<dependency>nl.ordina.jtech.java9:service</dependency>-->
+                            <dependency>nl.ordina.jtech.java9:service</dependency>
                         </modulepath>
                         <argument>-classpath</argument>
                         <classpath>
@@ -65,15 +52,7 @@
                             <dependency>org.springframework:spring-core</dependency>
                         </classpath>
                         <argument>--module</argument>
-                        <argument>${project.artifactId}/nl.ordina.jtech.java9.user.User</argument>
-
-                        <!-- TODO does not work due to a ' ' in directory.. -->
-                        <!--<argument>&#45;&#45;module-path</argument>-->
-                        <!--&lt;!&ndash; automatically creates the modulepath using all project dependencies,-->
-                             <!--also adding the project build directory &ndash;&gt;-->
-                        <!--<modulepath/>-->
-                        <!--<argument>&#45;&#45;module</argument>-->
-                        <!--<argument>${project.artifact}/nl.ordina.jtech.java9.user.User</argument>-->
+                        <argument>user/nl.ordina.jtech.java9.user.User</argument>
                     </arguments>
                 </configuration>
             </plugin>

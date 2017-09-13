@@ -31,6 +31,18 @@
             <version>4.3.9.RELEASE</version>
         </dependency>
 
+        <!-- intended for jdeps-on-java9 example - does not run yet, unfortunately -->
+        <!--<dependency>-->
+            <!--<groupId>org.aspectj</groupId>-->
+            <!--<artifactId>aspectjrt</artifactId>-->
+            <!--<version>1.8.10</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>org.aspectj</groupId>-->
+            <!--<artifactId>aspectjweaver</artifactId>-->
+            <!--<version>1.8.10</version>-->
+        <!--</dependency>-->
+
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
@@ -47,6 +59,24 @@
 
     <build>
         <plugins>
+            <!--<plugin>-->
+                <!--<groupId>org.apache.maven.plugins</groupId>-->
+                <!--<artifactId>maven-dependency-plugin</artifactId>-->
+                <!--<version>3.0.1</version>-->
+                <!--&lt;!&ndash; 3.0.2 fixes https://issues.apache.org/jira/browse/MDEP-571-->
+                     <!--but is unreleased (13-sep-2017) - see https://issues.apache.org/jira/projects/MDEP/versions/12341254-->
+                <!--&ndash;&gt;-->
+            <!--</plugin>-->
+
+            <!--<plugin>-->
+                <!--&lt;!&ndash; mvn jdeps:jdkinternals fails with e.g.  Module slf4j.api not found, required by user-->
+                     <!--the plugin does not seem to place (auto)modules on the modulepath in the-->
+                     <!--command line invocation to jdeps. All maven dependencies are added to the classpath. &ndash;&gt;-->
+                <!--<groupId>org.apache.maven.plugins</groupId>-->
+                <!--<artifactId>maven-jdeps-plugin</artifactId>-->
+                <!--<version>3.1.0</version>-->
+            <!--</plugin>-->
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
@@ -63,13 +93,13 @@
                                     <version>3.0.0</version>
                                 </requireMavenVersion>
                                 <requireJavaVersion>
-                                    <version>[1.8.0,1.8.1]</version> <!-- 'hack' to allow all Java 1.8.0-x releases. 1.8 or [1.8] or [1.8,1.8] or .. don't seem to work -->
+                                    <version>[1.8.0,9]</version>
                                 </requireJavaVersion>
                                 <banDuplicateClasses>
                                     <findAllDuplicates>true</findAllDuplicates>
                                 </banDuplicateClasses>
                                 <enforceBytecodeVersion>
-                                    <maxJdkVersion>8</maxJdkVersion>
+                                    <maxJdkVersion>9</maxJdkVersion>
                                 </enforceBytecodeVersion>
                             </rules>
                             <fail>true</fail>

@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
+
 public class User implements BaseUser {
     private final static Logger LOG = LoggerFactory.getLogger(User.class);
 
@@ -24,20 +25,23 @@ public class User implements BaseUser {
         LOG.info("internalServe result: {}", BusinessLayer.internalServe(this));
     }
 
-    //This default behavior is wanted in the interface
-    private String convertPretty(final String name, final String lastName) {
-        return name + " " + lastName;
-    }
-
-    public String getName() {
-        return convertPretty(firstName, lastName);
-    }
-
-    public void setFirstName(final String firstName) {
+    @Override
+    public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
-    public void setLastName(final String lastName) {
+    @Override
+    public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    @Override
+    public String getFirstName() {
+        return firstName;
+    }
+
+    @Override
+    public String getLastName() {
+        return lastName;
     }
 }

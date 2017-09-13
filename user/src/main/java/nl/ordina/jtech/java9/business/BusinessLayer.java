@@ -1,12 +1,12 @@
 package nl.ordina.jtech.java9.business;
 
 import nl.ordina.jtech.java9.service.collections.SuperCollectionService;
-import nl.ordina.jtech.java9.service.collections.impl.SuperCollectionServiceArrayListImpl;
+import nl.ordina.jtech.java9.service.collections.impl.SuperCollectionServiceListOfImpl;
 import nl.ordina.jtech.java9.user.BaseUser;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class BusinessLayer {
-    private SuperCollectionService service = new SuperCollectionServiceArrayListImpl();
+    private SuperCollectionService service = new SuperCollectionServiceListOfImpl();
 
     private SuperCollectionService internalService;
 
@@ -18,7 +18,7 @@ public class BusinessLayer {
     }
 
     private static String serve(BaseUser user, SuperCollectionService service) {
-        return user.getName() + ", " + service.serve();
+        return user.getName(user) + ", " + service.serve();
     }
 
     public static String normalServe(BaseUser user) {

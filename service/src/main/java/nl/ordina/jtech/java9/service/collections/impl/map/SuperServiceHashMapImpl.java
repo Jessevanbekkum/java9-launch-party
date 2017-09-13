@@ -8,9 +8,10 @@ import java.util.Map;
 
 public class SuperServiceHashMapImpl implements SuperMapService {
     public Map<String, String> serve() {
-        Map<String, String> map = new HashMap<>(3);
+        Map<String, String> map = new HashMap<>(4);
         map.put("Rosanne", "Ordina JTECH");
         map.put("Bas", "Ordina JTECH");
+        map.put("Philippe", "Ordina JTECH");
         map.put("Hedzer", "Ordina JTECH");
         return Collections.unmodifiableMap(map);
     }
