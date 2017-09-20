@@ -15,7 +15,7 @@ public class HashServiceTest {
     public void testAvailableHashAlgorithms() throws Exception {
         HashService.hash("test", "SHA-256");
 
-        HashService.hash("test", "foo");
+        HashService.hash("test", "SHA3-512");
     }
 
 }

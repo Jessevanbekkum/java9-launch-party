@@ -1,33 +1,35 @@
 package nl.ordina.jtech.java9.service.flow;
 
+import java.util.concurrent.Flow;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class NumberDoublerLoggingConsumer {//implements Subscriber<Integer> {
+public class NumberDoublerLoggingConsumer implements Flow.Subscriber<Integer> {
     private final static Logger LOG = LoggerFactory.getLogger(NumberDoublerLoggingConsumer.class);
 
-    //private Flow.Subscription subscription;
+    private Flow.Subscription subscription;
 
-    //@Override
-    public void onSubscribe(/*Flow.Subscription subscription*/) {
+    @Override
+    public void onSubscribe(Flow.Subscription subscription) {
         //- enable this - remember subscription & request one item at a time
-        //this.subscription = subscription;
-        //subscription.request(1);
+        this.subscription = subscription;
+        subscription.request(1);
     }
 
-    //@Override
+    @Override
     public void onNext(Integer item) {
         LOG.info("onNext: {}", item * 2);
         //- enable this - request one item at a time
-        //subscription.request(1);
+        subscription.request(1);
     }
 
-    //@Override
+    @Override
     public void onError(Throwable throwable) {
         LOG.error("onError", throwable);
     }
 
-    //@Override
+    @Override
     public void onComplete() {
         LOG.info("Done!");
     }

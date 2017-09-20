@@ -4,6 +4,7 @@ import nl.ordina.jtech.java9.service.collections.impl.SuperCollectionServiceArra
 import nl.ordina.jtech.java9.service.collections.impl.internal.SuperCollectionServiceArraysAsListInternal;
 import org.junit.Test;
 
+@SuppressWarnings({"deprecation", "removal"})
 public class SuperCollectionServiceTest {
     private static final int MAX = 5_000_000;
 
@@ -15,7 +16,7 @@ public class SuperCollectionServiceTest {
      * 3. die lossen we natuurlijk op met @SuppressWarnings("deprecation")
      * 4. of niet?
      * 5. .. aangezien we 'forRemoval=true' aangeven, moet je in dit geval onderdrukken met:
-     * @SuppressWarnings({“deprecation”, “removal”})
+     * @SuppressWarnings({"deprecation", "removal"})
      * 6. Compileert alles weer zonder warnings, dan mag je de 'throw new RuntimeException' hieronder verwijderen
      */
     @Test
@@ -24,7 +25,6 @@ public class SuperCollectionServiceTest {
         for (int i = 0; i < MAX; i++) {
             service.serve();
         }
-        throw new RuntimeException("zie commentaar/instructies over @Deprecated - daarna deze throw verwijderen");
     }
 
     /*

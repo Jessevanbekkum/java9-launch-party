@@ -23,7 +23,7 @@ public class BusinessLayer {
         final ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring.xml");
         internalService = applicationContext.getBean("internal", SuperCollectionService.class);
         //- will not compile - package 'opens' in module-info enables just runtime Reflection, not compilation
-        //internalService = new SuperCollectionServiceArraysAsListInternal();
+        // internalService = new SuperCollectionServiceArraysAsListInternal();
     }
 
     private static String serve(User user, SuperCollectionService service) {

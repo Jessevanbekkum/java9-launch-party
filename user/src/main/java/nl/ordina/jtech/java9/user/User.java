@@ -7,7 +7,11 @@ public interface User {
     String getFirstName();
 
     default String getName() {
-        return getFirstName() + "" + getLastName();
+        return convertPretty();
+    }
+
+    private String convertPretty() {
+        return getFirstName() + " " + getLastName();
     }
 
 }

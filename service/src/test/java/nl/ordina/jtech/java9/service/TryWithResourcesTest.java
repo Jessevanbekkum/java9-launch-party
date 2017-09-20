@@ -31,7 +31,7 @@ public class TryWithResourcesTest {
             inputStreamReader.read(chars);
             final String lineRead = String.valueOf(chars);
             LOG.info("read: '{}'", lineRead);
-            assertTrue(lineRead.startsWith("In Java 9, "));
+            assertTrue(lineRead.startsWith("In Java 7, "));
         }
     }
 }

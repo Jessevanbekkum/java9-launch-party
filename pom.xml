@@ -63,13 +63,13 @@
                                     <version>3.0.0</version>
                                 </requireMavenVersion>
                                 <requireJavaVersion>
-                                    <version>[1.8.0,1.8.1]</version> <!-- 'hack' to allow all Java 1.8.0-x releases. 1.8 or [1.8] or [1.8,1.8] or .. don't seem to work -->
+                                    <version>[1.8.1, 9]</version> <!-- 'hack' to allow all Java 1.8.0-x releases. 1.8 or [1.8] or [1.8,1.8] or .. don't seem to work -->
                                 </requireJavaVersion>
                                 <banDuplicateClasses>
                                     <findAllDuplicates>true</findAllDuplicates>
                                 </banDuplicateClasses>
                                 <enforceBytecodeVersion>
-                                    <maxJdkVersion>8</maxJdkVersion>
+                                    <maxJdkVersion>9</maxJdkVersion>
                                 </enforceBytecodeVersion>
                             </rules>
                             <fail>true</fail>

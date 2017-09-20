@@ -4,7 +4,9 @@ import nl.ordina.jtech.java9.service.collections.impl.map.SuperServiceHashMapImp
 import org.junit.Test;
 
 import java.util.Map;
+import java.util.function.Supplier;
 
+import static java.util.Map.entry;
 import static junit.framework.TestCase.assertEquals;
 
 public class SuperMapServiceTest {
@@ -28,10 +30,7 @@ public class SuperMapServiceTest {
      */
     @Test
     public void loadTestMapOf() {
-        SuperMapService service = //new SuperServiceMapOfImpl();
-            new SuperMapService() { @Override public Map<String, String> serve() {
-                throw new IllegalArgumentException("not implemented - create SuperServiceMapOfImpl");
-            }};
+        SuperMapService service = () -> Map.of("key1", "value1", "key2", "value2", "key3", "value3");
         loadTest(service);
     }
 
@@ -45,9 +44,8 @@ public class SuperMapServiceTest {
      */
     @Test
     public void loadTestMapOfEntries() {
-        SuperMapService service = //new SuperServiceMapOfEntriesImpl();
-            new SuperMapService() { @Override public Map<String, String> serve() {
-                throw new IllegalArgumentException("not implemented - create SuperServiceMapOfEntriesImpl");
+        SuperMapService service = new SuperMapService() { @Override public Map<String, String> serve() {
+                return Map.ofEntries(entry("key1","value1"),entry("key2","value2"),entry("key3","value3"));
             }};
         loadTest(service);
     }

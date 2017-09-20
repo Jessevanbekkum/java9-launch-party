@@ -13,12 +13,12 @@ public class HashService {
         MessageDigest messageDigest = MessageDigest.getInstance(algorithm);
         messageDigest.update(message.getBytes());
         byte[] messageDigestMD5 = messageDigest.digest();
-        StringBuilder _ = new StringBuilder();
+        StringBuilder stringBuilder = new StringBuilder();
         for (byte bytes : messageDigestMD5) {
-            _.append(String.format("%02x", bytes & 0xff));
+            stringBuilder.append(String.format("%02x", bytes & 0xff));
         }
 
-        LOG.info("data: {} digested with {}: {}", message, algorithm, _);
-        return _.toString();
+        LOG.info("data: {} digested with {}: {}", message, algorithm, stringBuilder);
+        return stringBuilder.toString();
     }
 }
