@@ -33,14 +33,15 @@ _Let's get started!_
 	- De enforcer plugin zou nu moeten falen. 
 	- Fix dit door in de pom.xml bij `<requireJavaVersion/>` 1.8.1 te vervangen door 9.
 	- Nu zou de enforcer opnieuw moeten falen, dit keer omdat artifact 'service' depend op 'user', en die nu naar java 9 compileert.
-	- Fix dit door `<maxJdkVersion/>` naar 9 op te hogen  
+	- Fix dit door `<maxJdkVersion/>` naar 9 op te hogen
+	- Compileer je code nogmaals om te zien of dit heeft geholpen; vanaf dit punt maakt het niet meer uit of je in je IDE of vanaf de command line compileert.
 1. Nu is het tijd om ons project te modulariseren!
 	- hernoem beide 'module-info.java9' files naar 'module-info.java'
 	- je zult zien dat de compilatie opeens faalt met o.a. `package org.slf4j is not visible`.
 	- Reden is dat slf4-api (een transitive dependency van logback-classic) wel als maven dependency bekend is - en dus op het classpath staat - maar dat we niet aan de compiler vertellen dat we dit als module willen gebruiken.
 		- NB In gemodulariseerde projecten moeten _alle_ geimporteerde packages op het modulepath staan!
 	- voeg in beide 'module-info.java' files toe: `requires slf4j.api;`
-		- NB slf4j-api is nog niet gemodulariseerd! We maken hier gebruik van de enigszins controversi&euml;le 'automodule' feature. De maven build zal dan ook een grote waarschuwing tonen:
+		- NB slf4j-api is nog niet gemodulariseerd! We maken hier gebruik van de enigszins controversi&euml;le 'automodule' feature. De maven build (dus vanaf command line) zal dan ook een grote waarschuwing tonen:
 	
     [WARNING] ********************************************************************************************************************
     [WARNING] * Required filename-based automodules detected. Please don't publish this project to a public artifact repository! *
