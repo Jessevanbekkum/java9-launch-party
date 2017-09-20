@@ -6,7 +6,7 @@ Deze instructies nemen je stap voor stap mee om te migreren naar Java 9.
 Daarbij maak je kennis met enkele van de nieuwe features.
 
 Mocht je vast komen te zitten, vraag dan één van de workshop-begeleiders om hulp.
-Maar je kunt ook even spieken in de branch 'uitwerking'.
+Maar je kunt ook even spieken in de branch 'uitwerking_java9'.
 
 _Let's get started!_
 
