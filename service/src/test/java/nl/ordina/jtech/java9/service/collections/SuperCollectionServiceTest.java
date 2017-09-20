@@ -15,7 +15,7 @@ public class SuperCollectionServiceTest {
      * 3. die lossen we natuurlijk op met @SuppressWarnings("deprecation")
      * 4. of niet?
      * 5. .. aangezien we 'forRemoval=true' aangeven, moet je in dit geval onderdrukken met:
-     * @SuppressWarnings({“deprecation”, “removal”})
+     * @SuppressWarnings({"deprecation", "removal"})
      * 6. Compileert alles weer zonder warnings, dan mag je de 'throw new RuntimeException' hieronder verwijderen
      */
     @Test

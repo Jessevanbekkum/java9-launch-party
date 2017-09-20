@@ -22,9 +22,11 @@ _Let's get started!_
 1. upgrade zo nodig je IDE:
 	- [NetBeans (nightly!)](http://wiki.netbeans.org/JDK9Support) 
 	- [Eclipse (Oxygen) met extra plugins](https://marketplace.eclipse.org/content/java-9-support-beta-oxygen)
-	- IntelliJ: upgrade naar 2017.1.3 of hoger, mocht je dat nog niet gedaan hebben.
+	- IntelliJ: upgrade naar 2017.1.4 of hoger, mocht je dat nog niet gedaan hebben.
+	    - Pas vanaf die versie wordt main() via het modulepath gestart. Je zult hier in stap 16 tegenaan lopen.
+	    - Helaas worden _unit tests_ nog steeds via het classpath gestart
 1. open het project - dat bestaat uit twee modules, 'user' en 'service' - in je favoriete Java IDE
-1. pas in de POM's van user en service de `<source/>` versie aan van 1.8 naar 9
+1. pas in de POM's van user en service de `<source/>` en `<target/>` versies aan van 1.8 naar 9
 1. upgrade de compiler-plugin in beide naar 3.7.0
 	- versies 3.6.x ondersteunen al Java 9, maar falen op module-info.java files met commentaar..
 1. maven-import de modules nu nogmaals in je IDE
