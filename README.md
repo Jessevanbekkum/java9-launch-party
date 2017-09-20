@@ -12,7 +12,10 @@ _Let's get started!_
 
 1. git clone deze repository
 1. installeer [Maven3](https://maven.apache.org/download.cgi), mocht je dat nog niet ge&iuml;nstalleerd hebben
+1. check dat je een Java 8 JDK actief hebt: 
+	- `mvn -v` moet Java versie 1.8.0_x tonen
 1. verifieer de installatie middels `mvn clean install -DskipTests` in een console geopend op de directory van je git clone
+    - dit zal falen als er een andere JDK dan Java versie 8 actief is!
 1. installeer [JDK9](http://jdk.java.net/9/) 
 1. check de waarde van de environment variabelen `MAVEN_HOME` en `JAVA_HOME`.
 	- `mvn -v` moet Java versie 9 tonen, en minimaal Maven 3.0.0 (liefst 3.3.x).
@@ -31,7 +34,7 @@ _Let's get started!_
 1. fix de error met de variabelenaam '_' door een zinnige naam te kiezen  
 1. Draai `mvn clean install -DskipTests` om te verifiëren dat Maven naar Java 9 compileert
 	- De enforcer plugin zou nu moeten falen. 
-	- Fix dit door in de pom.xml bij `<requireJavaVersion/>` 1.8.1 te vervangen door 9.
+	- Fix dit door in de pom.xml bij `<requireJavaVersion/>` '1.8.1' te _vervangen_ door '9'.
 	- Nu zou de enforcer opnieuw moeten falen, dit keer omdat artifact 'service' depend op 'user', en die nu naar java 9 compileert.
 	- Fix dit door `<maxJdkVersion/>` naar 9 op te hogen
 	- Compileer je code nogmaals om te zien of dit heeft geholpen; vanaf dit punt maakt het niet meer uit of je in je IDE of vanaf de command line compileert.
@@ -50,17 +53,18 @@ _Let's get started!_
 1. class BusinessLayer faalt op een vergelijkbare error `package org.springframework.context.support is not visible`. 
 	- Dit lossen we op door `requires spring.context;` toe te voegen aan de module-info.java van het 'user' project.
 		- Mocht je je afvragen hoe we komen aan de (auto)modulenamen slf4j.api en spring.context: die worden afgeleid van de filenamen van de JARs op het classpath, resp. slf4j-api-1.7.5.jar en spring-context-4.3.9.RELEASE.jar. Documentatie van de 'automodule' magie zit verstopt in [de javadoc van ModuleFinder](http://download.java.net/java/jigsaw/docs/api/java/lang/module/ModuleFinder.html#of-java.nio.file.Path...-)
-	- start nu `BusinessLayerTest` vanuit je IDE.
+	- start nu `BusinessLayer.main()` vanuit je IDE.
 	- je krijgt een `NoClassDefFoundError: java/sql/SQLException`.
 	- Dat is vreemd! Die class zit toch gewoon in Java SE en is toch altijd in scope?
 	- Nou: in Java 9 niet meer! Deze class is ingedeeld in module [java.sql](http://download.java.net/java/jdk9/docs/api/java.sql-summary.html). Alleen `java.base` zit automatisch in scope (net zoals `java.lang.*` classes altijd impliciet ge&iuml;mporteerd zijn).
-	- Dit probleem lossen we dus op d.m.v. toevoegen van `requires java.sql;` aan de module-info.java.
-	- controleer of `BusinessLayerTest` nu wel slaagt.
+	    - NB als je dezelfde code raakt via BusinessLayerTest krijg je deze fout niet. Waarom? Omdat [de surefire plugin nog helemaal niet met het modulepath kan omgaan](https://issues.apache.org/jira/browse/SUREFIRE-1262). Alle dependencies - dus ook Spring - worden op het classpath gezet, waardoor de encapsulatie die jigsaw biedt, niet aangeroepen wordt.
+	- Dit probleem lossen we op d.m.v. toevoegen van `requires java.sql;` aan de module-info.java.
+	- controleer of `BusinessLayer.main()` nu wel slaagt.
 	- Helaas.. Een `IllegalAccessException [..] module service does not export nl.ordina.jtech.java9.service.collections.impl.internal`.
 	- De Spring configuratie verwijst naar SuperCollectionServiceArraysAsListInternal, echter willen we die (om fictieve architecturele redenen ;-) niet exporteren uit onze service module (vandaar ook de 'impl.internal' package).
 	- We willen echter wel (om dezelfde fictieve redenen) Spring deze implementatieklasse laten instanti&euml;ren via reflectie. 
 	- Voeg om dat mogelijk te maken het volgende toe aan de module-info.java van de service module: `opens nl.ordina.jtech.java9.service.collections.impl.internal;`.
-	- controleer of `BusinessLayerTest` nu eindelijk groen wordt.
+	- controleer of `BusinessLayer.main()` nu eindelijk groen wordt.
 	- Als bonus kun je evt. de commented line in de constructor van BusinessLayer aanzetten, om te verifi&euml;ren dat de compiler je _echt_ geen toegang geeft, maar Spring wel.
 1. Hiermee is de modularisatie van het workshop project voltooid en kun je verder gaan met het exploreren van enkele nieuwe syntax & JDK features van Java 9. Aan de slag! 
 1. run alle unit tests in de service en user projecten; je ziet dat ze allen falen.
